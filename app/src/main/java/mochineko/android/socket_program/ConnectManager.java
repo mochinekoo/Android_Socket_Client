@@ -1,5 +1,6 @@
 package mochineko.android.socket_program;
 
+import android.app.AlertDialog;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -47,7 +48,7 @@ public class ConnectManager {
     }
 
     public void connect() {
-        new Thread(() -> {
+        Thread connectThread = new Thread(() -> {
             try {
                 this.socket = new Socket();
                 socket.connect(new InetSocketAddress(hostName, port));
@@ -61,6 +62,20 @@ public class ConnectManager {
                 } while (!socket.isClosed());
             } catch (IOException e) {
                 e.printStackTrace();
+                mainActivity.runOnUiThread(() -> {
+                    AlertDialog alertDialog = new AlertDialog.Builder(mainActivity)
+                            .setTitle("エラー")
+                            .setMessage("接続できませんでした")
+                            .setPositiveButton("閉じる", (dialog, which) -> {
+                                dialog.dismiss();
+                                mainActivity.finish();
+                            })
+                            .setNegativeButton("再接続", (dialog, which) -> {
+                                connect();
+                            })
+                            .create();
+                    alertDialog.show();
+                });
             }
             finally {
                 try {
@@ -69,7 +84,8 @@ public class ConnectManager {
                     throw new RuntimeException(e);
                 }
             }
-        }).start();
+        });
+        connectThread.start();
     }
 
     public void send(String message) {
