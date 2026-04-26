@@ -5,15 +5,28 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1D1C1C"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/topInfoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#524F4F"
+        android:text="チャット"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:gravity="center">
+    </TextView>
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/topInfoTextView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,20 +37,35 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
     </ScrollView>
 
-    <EditText
-        android:id="@+id/editTextText"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="bottom"
-        android:inputType="text"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="20dp"
+        android:background="#524F4F"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp">
+
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#524F4F"
+            android:ems="10"
+            android:gravity="bottom"
+            android:inputType="text"
+            android:text=""
+            android:hint="メッセージを入力"
+            android:textColorHint="#978E8E"
+            android:textColor="#FFFFFF"/>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
